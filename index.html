@@ -12,7 +12,7 @@
     
 <div class="container mx-auto text-center text-warning">
     <h2 class="p-2">Choose a player</h2>
-    <div class="row player-choices">
+    <div class="row" id="player-choices">
             <img class="players col-3 card p-0" id="rey" src="assets/images/rey.jpg">
       
             <img class="players col-3 card p-0" id="leia" src="assets/images/leia.jpg">
@@ -38,7 +38,7 @@
     </div>
 
     <div class="row field">
-        <div class="col-3 card p-0 field" id="chosen-character"></div>
+        <div class="col-3 card p-0 field" id="your-character"></div>
 
         <div class="p-2 col-6 my-auto">
             <button id="attack" class="btn btn-warning">Attack</button>
@@ -46,6 +46,11 @@
 
         <div class="col-3 card p-0 field" id="defender"></div>
     </div>
+
+    <div class="p-2 col-6 mx-auto" id="reset-button">
+        
+    </div>
+
 </div>
 
     <script

@@ -1,98 +1,116 @@
 $(document).ready(function() {
 
-    var reyChar = {
-        name : "Rey",
-        healthPoints: 180,
-        attackPower: 6,
-        counterAttackPower: 15,
-        id: "rey",
-    } 
-    var leiaChar = {
-        name : "Leia",
-        healthPoints: 150,
-        attackPower: 9,
-        counterAttackPower: 25, 
-        id: "leia"
-    }  
-    var padmeChar = {
-        name : "Padme",
-        healthPoints: 100,
-        attackPower: 7,
-        counterAttackPower: 20,
-        id: "padme"
-    }
-    var jynChar = {
-        name : "Jyn",
-        healthPoints: 120,
-        attackPower: 8,
-        counterAttackPower: 10,
-        id: "jyn"
-    }
-
-    var playerArray = [jynChar, padmeChar, leiaChar, reyChar];
+var reyPlayer = {
+    name : "Rey",
+    healthPoints: 180,
+    attackPower: 6,
+    counterAttackPower: 15,
+    id: "rey",
+} 
+var leiaPlayer = {
+    name : "Leia",
+    healthPoints: 150,
+    attackPower: 9,
+    counterAttackPower: 35, 
+    id: "leia"
+}  
+var padmePlayer = {
+    name : "Padme",
+    healthPoints: 100,
+    attackPower: 7,
+    counterAttackPower: 20,
+    id: "padme"
+}
+var jynPlayer = {
+    name : "Jyn",
+    healthPoints: 120,
+    attackPower: 8,
+    counterAttackPower: 10,
+    id: "jyn"
+}
     var enemyArray = [];
-    var you = null;
-    var defender = null;
-    var playerLife;
-    var enemyLife;
-    var firstPlayer = "";
+    // // var you = null;
+    // // var defender = null;
+    // var playerLife;
+    // var enemyLife;
+    var playerArray = [jynPlayer, padmePlayer, leiaPlayer, reyPlayer];
     var playerSelected = false;
     var opponentSelected = false;
-    var secondPlayer = "";
+    
     $(".players").on("click", function() {
-        // debugger;
         if (playerSelected === false) {
+            playerSelected = true;
+            $("#your-character").append(this);
+            $(this).removeClass("players");
+            $(this).removeClass("col-3");
+            $("#available-enemies").append($(".players"));
+            $(this).addClass("players");
             const found = playerArray.find(element => this.id === element.id);
             you = jQuery.extend({}, found);
-            playerSelected = true;
-            // $("#chosen-character").append(this);
-            // $(this).removeClass("players");
-            // $("#available-enemies").append($(".players"));
-            // enemyArray = jQuery.extend({}, playerObject[.id]);
-            enemyArray = playerArray.filter(element => element.id !== this.id);
-            $(this).removeClass("col-3");
-
-            updateDOMForPlayer();
+            console.log(you);
         }
 
         $(".players").on("click", function() {
-        if (opponentSelected === false) {
-            opponentSelected = true;       
-            var found = playerArray.find(element => this.id === element.id);
-            defender = jQuery.extend({}, found);
-            enemyArray = enemyArray.filter(element => element.id !== this.id);
-            $("#available-enemies").append(enemyArray);
-            $("#defender").append(this);
-            $(this).removeClass("col-3");
-            var enemy = this;
-        }  
+            if (opponentSelected === false) {
+                opponentSelected = true;       
+                $("#defender").append(this);
+                $(this).removeClass("col-3");
+                const found = playerArray.find(element => this.id === element.id);
+                defender = jQuery.extend({}, found);
+            } 
+            
+            $("#attack").on("click", function() {
+                if (playerSelected === true && opponentSelected === true) {
+                    myAttack = you.attackPower;
+                    defender.healthPoints -= you.attackPower;
+                    console.log(you.attackPower);
+                    you.attackPower += myAttack;
+                    you.healthPoints -= defender.counterAttackPower;
+                    if (defender.healthPoints <= 0) {
+                        console.log("You win! Choose another enemy.")
+                        opponentSelected = false;
+                        playerArray.splice(defender); 
+                        $("#defender").empty();
+                            // if (playerArray.indexOf < 1) {
+                            //     console.log("you win");
+                            //     opponentSelected = true;
+                            //     return;
+                            // }
+                        
+                    } else if (you.healthPoints <= 0) {
+                        console.log("You lost. Press reset.")
+                        $("#reset-button").html('<button class="btn btn-warning">Reset</button>');
+                        return;
+                        }
+                    }
+
+                    
+                }); 
         });
 
-        function updateDOMForPlayer() {
-            $("#chosen-character").html($('#' + you.id));
-            var enemyDiv = $("#available-enemies");
-            enemyDiv.empty();
-            enemyArray.forEach(enemy => {
-                var playerImg = $('#' + enemy.id);
-                enemyDiv.append(playerImg);
-            });
-        }
-        $("#attack").on("click", function() {
-            var attackPower = $('#' + you.attackPower);
-            attackPower += attackPower;
-            var enemyPower = $('#' + enemy.counterAttackPower);
-            you.healthPoints -= enemyPower;
-    
-        });  
-    
-
-
-        
     });
+   
     
-    
+    $("#reset-button").on("click", function() {
+        // $("#defender").empty();
+        // $("#your-character").empty();
+        playerSelected = false;
+        opponentSelected = false;
+        $(".players").addClass("col-3");
+        $("#player-choices").append($(".players"));
+        reyPlayer.healthPoints = 180;
+        reyPlayer.attackPower = 6;
+        leiaPlayer.healthPoints = 150;
+        leiaPlayer.attackPower = 9;
+        padmePlayer.healthPoints = 100;
+        padmePlayer.attackPower = 7;
+        jynPlayer.healthPoints = 120;
+        jynPlayer.attackPower = 8;
+        });
+  
 
 }); 
+
 
 
 
