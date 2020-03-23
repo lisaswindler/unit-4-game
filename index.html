@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <title>Star Wars RPG Game</title>
+</head>
+<body>
+    
+<div class="container mx-auto text-center text-warning">
+    <h2 class="p-2">Choose a player</h2>
+    <div class="row player-choices">
+            <img class="players col-3 card p-0" id="rey" src="assets/images/rey.jpg">
+      
+            <img class="players col-3 card p-0" id="leia" src="assets/images/leia.jpg">
+         
+            <img class="players col-3 card p-0" id="padme" src="assets/images/padme.jpg">
+          
+            <img class="players col-3 card p-0" id="jyn" src="assets/images/jyn.jpg">
+    </div>
+
+    <h2 class="pt-3 pb-2">Enemies to defeat</h2>
+    <div class="row" id="available-enemies">
+            <!-- <img class="players col-3 card p-0" src="assets/images/jyn.jpg">
+            <img class="players col-3 card p-0" src="assets/images/jyn.jpg"> -->
+    </div>
+
+    <h2 class="pt-3 pb-2">The playing field</h2>
+    <div id="playing-field"></div>
+
+    <div class="row pb-2">
+        <h2 class="you-defender pb-2 col-3">You</h2>
+        <div class="col-6"></div>
+        <h2 class="you-defender pb-2 col-3">Defender</h2>
+    </div>
+
+    <div class="row field">
+        <div class="col-3 card p-0 field" id="chosen-character"></div>
+
+        <div class="p-2 col-6 my-auto">
+            <button id="attack" class="btn btn-warning">Attack</button>
+        </div>
+
+        <div class="col-3 card p-0 field" id="defender"></div>
+    </div>
+</div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+    <script src="assets/javascript/game.js"></script>
+</body>
+</html>

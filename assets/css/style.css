@@ -1,0 +1,17 @@
+body {
+    background-color: black;
+    text-transform: uppercase;
+}
+
+.field {
+    height: 147px;
+    background-color: black;
+}
+
+.you-defender {
+    font-size: 16px;
+}
+
+img {
+    width: 100%;
+}
