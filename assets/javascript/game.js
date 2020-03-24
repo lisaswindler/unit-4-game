@@ -55,6 +55,7 @@ var jynPlayer = {
                 opponentSelected = true;       
                 $("#defender").append(this);
                 $(this).removeClass("col-3");
+                $(this).addClass("defender-points");
                 const found = playerArray.find(element => this.id === element.id);
                 defender = jQuery.extend({}, found);
             } 
@@ -63,13 +64,14 @@ var jynPlayer = {
                 if (playerSelected === true && opponentSelected === true) {
                     myAttack = you.attackPower;
                     defender.healthPoints -= you.attackPower;
+                    $(".defender-points").html(defender.healthPoints);
                     console.log(you.attackPower);
                     you.attackPower += myAttack;
                     you.healthPoints -= defender.counterAttackPower;
                     if (defender.healthPoints <= 0) {
                         console.log("You win! Choose another enemy.")
                         opponentSelected = false;
-                        playerArray.splice(defender); 
+                        // playerArray.splice(defender); 
                         $("#defender").empty();
                             // if (playerArray.indexOf < 1) {
                             //     console.log("you win");
