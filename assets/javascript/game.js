@@ -27,7 +27,7 @@ var jynPlayer = {
     attackPower: 8,
     counterAttackPower: 10,
     id: "jyn"
-}
+};
     var enemyArray = [];
     // // var you = null;
     // // var defender = null;
@@ -49,50 +49,51 @@ var jynPlayer = {
             you = jQuery.extend({}, found);
             // const health = playerArray.find(element => this > div.id === element.healthPoints);
             // playerHealth = jQuery.extend({}, health);
-            var playerHealth = ($(this).find("p".id));
-            console.log(playerHealth);
+            var yourHealth = ($(this).find("div"));
             console.log(you);
         }
 
         $(".players").on("click", function() {
             if (opponentSelected === false) {
-                opponentSelected = true;       
+                opponentSelected = true;     
                 $("#defender").append(this);
                 $(this).removeClass("col-3");
                 $(this).addClass("defender-points");
                 const found = playerArray.find(element => this.id === element.id);
                 defender = jQuery.extend({}, found);
+                var enemyHealth = ($(this).find("div"));
                 console.log(defender);
             } 
             
             $("#attack").on("click", function() {
                 if (playerSelected === true && opponentSelected === true) {
-                    myAttack = you.attackPower;
+                    // increment attack power by original number
                     defender.healthPoints -= you.attackPower;
-                    $(".defender-points").html(defender.healthPoints);
-                    console.log(you.attackPower);
-                    you.attackPower += myAttack;
+                    enemyHealth.html(defender.healthPoints);           
                     you.healthPoints -= defender.counterAttackPower;
+                    yourHealth.html(you.healthPoints);
                     if (defender.healthPoints <= 0) {
                         console.log("You win! Choose another enemy.")
                         opponentSelected = false;
-                        // playerArray.splice(defender); 
                         $("#defender").empty();
-                            // if (playerArray.indexOf < 1) {
-                            //     console.log("you win");
-                            //     opponentSelected = true;
-                            //     return;
-                            // }
-                        
                     } else if (you.healthPoints <= 0) {
                         console.log("You lost. Press reset.")
                         $("#reset-button").html('<button class="btn btn-warning">Reset</button>');
+                        $(".players").hide();
                         return;
                         }
-                    }
-
-                    
+                    };
                 }); 
+                
+            //  if ($("#defender") === "") {
+            //         console.log("you win");
+            //         $("#reset-button").html('<button class="btn btn-warning">Reset</button>');
+            //         $("#your-character").empty();
+            //         return;
+                // }; attribute on the attacker that has their attack level so I just add that to a variable that I increment
+                // after each attack
+
+
         });
 
     });
@@ -101,6 +102,7 @@ var jynPlayer = {
     $("#reset-button").on("click", function() {
         // $("#defender").empty();
         // $("#your-character").empty();
+        $(".players").show();
         playerSelected = false;
         opponentSelected = false;
         $(".players").addClass("col-3");
@@ -114,7 +116,7 @@ var jynPlayer = {
         jynPlayer.healthPoints = 120;
         jynPlayer.attackPower = 8;
         });
-  
+
 
 }); 
 
