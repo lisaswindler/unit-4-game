@@ -47,6 +47,10 @@ var jynPlayer = {
             $(this).addClass("players");
             const found = playerArray.find(element => this.id === element.id);
             you = jQuery.extend({}, found);
+            // const health = playerArray.find(element => this > div.id === element.healthPoints);
+            // playerHealth = jQuery.extend({}, health);
+            var playerHealth = ($(this).find("p".id));
+            console.log(playerHealth);
             console.log(you);
         }
 
@@ -58,6 +62,7 @@ var jynPlayer = {
                 $(this).addClass("defender-points");
                 const found = playerArray.find(element => this.id === element.id);
                 defender = jQuery.extend({}, found);
+                console.log(defender);
             } 
             
             $("#attack").on("click", function() {
