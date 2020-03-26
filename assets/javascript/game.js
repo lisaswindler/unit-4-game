@@ -57,6 +57,8 @@ var jynPlayer = {
                 const found = playerArray.find(element => this.id === element.id);
                 defender = jQuery.extend({}, found);
                 var enemyHealth = ($(this).find("div"));
+                $("#results1").html("");
+                $("#results2").html("");
             } 
             
             $("#attack").on("click", function() {
