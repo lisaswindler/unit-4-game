@@ -28,7 +28,7 @@ var jynPlayer = {
     counterAttackPower: 10,
     id: "jyn"
 };
-    var enemyArray = [];
+
     var playerArray = [jynPlayer, padmePlayer, leiaPlayer, reyPlayer];
     var playerSelected = false;
     var opponentSelected = false;
@@ -46,58 +46,52 @@ var jynPlayer = {
             you = jQuery.extend({}, found);
             var yourHealth = ($(this).find("div"));
             var yourAttack = ($(this).attr("attack"));
-            console.log(yourAttack);
-            console.log(you);
-            $(this).addClass("attacker");
+            $(this).addClass("selected");
         }
 
         $(".players").on("click", function() {
-            if (opponentSelected === false && $(this).hasClass("attacker") === false) {
+            if (opponentSelected === false && $(this).hasClass("selected") === false) {
                 opponentSelected = true;     
                 $("#defender").append(this);
                 $(this).removeClass("col-3");
                 const found = playerArray.find(element => this.id === element.id);
                 defender = jQuery.extend({}, found);
                 var enemyHealth = ($(this).find("div"));
-                console.log(defender);
             } 
             
             $("#attack").on("click", function() {
                 if (playerSelected === true && opponentSelected === true) {
-                    console.log(you.attackPower);
                     defender.healthPoints -= you.attackPower;
                     you.attackPower += parseFloat(yourAttack);
                     enemyHealth.html(defender.healthPoints);           
                     you.healthPoints -= defender.counterAttackPower;
                     yourHealth.html(you.healthPoints);
                     $("#results1").html(you.name + " attacked " + defender.name + " for " + you.attackPower + " damage");
-                    $("#results2").html(defender.name + " counter-attacked for " + defender.counterAttackPower + " damage");
+                    $("#results2").html(defender.name + " counterattacked for " + defender.counterAttackPower + " damage");
                     if (defender.healthPoints <= 0) {
-                        console.log("You win! Choose another enemy.")
+                        $("#results1").html("You win!");
+                        $("#results2").html("Choose another enemy");
                         opponentSelected = false;
                         $("#defender").empty();
                         wins++
+                            if (wins === 3) {
+                            $("#results1").html("You win!");
+                            $("#results2").html("Your enemies are vanquished.");
+                            $(".players").hide();
+                            $("#reset-button").html('<button class="btn btn-warning">Reset</button>');
+                            };  
                         }
                     else if (you.healthPoints <= 0) {
-                        console.log("You lost. Press reset.")
+                        $("#results1").html("You died.");
+                        $("#results2").html("Press reset to play again");
                         $("#reset-button").html('<button class="btn btn-warning">Reset</button>');
                         $(".players").hide();
-                    } 
-                        if (wins === 3) {
-                        console.log("you win");
-                        $("#your-character").empty();
-                        $("#reset-button").html('<button class="btn btn-warning">Reset</button>');
-                };  
+                    }      
                 };
-                }); 
-                
+            });      
         });
-
     });
-   
     $("#reset-button").on("click", function() {
             location.reload();
-        });
-
-
+    });
 }); 
