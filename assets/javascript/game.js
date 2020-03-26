@@ -29,13 +29,10 @@ var jynPlayer = {
     id: "jyn"
 };
     var enemyArray = [];
-    // // var you = null;
-    // // var defender = null;
-    // var playerLife;
-    // var enemyLife;
     var playerArray = [jynPlayer, padmePlayer, leiaPlayer, reyPlayer];
     var playerSelected = false;
     var opponentSelected = false;
+    var wins = 0;
     
     $(".players").on("click", function() {
         if (playerSelected === false) {
@@ -47,18 +44,18 @@ var jynPlayer = {
             $(this).addClass("players");
             const found = playerArray.find(element => this.id === element.id);
             you = jQuery.extend({}, found);
-            // const health = playerArray.find(element => this > div.id === element.healthPoints);
-            // playerHealth = jQuery.extend({}, health);
             var yourHealth = ($(this).find("div"));
+            var yourAttack = ($(this).attr("attack"));
+            console.log(yourAttack);
             console.log(you);
+            $(this).addClass("attacker");
         }
 
         $(".players").on("click", function() {
-            if (opponentSelected === false) {
+            if (opponentSelected === false && $(this).hasClass("attacker") === false) {
                 opponentSelected = true;     
                 $("#defender").append(this);
                 $(this).removeClass("col-3");
-                $(this).addClass("defender-points");
                 const found = playerArray.find(element => this.id === element.id);
                 defender = jQuery.extend({}, found);
                 var enemyHealth = ($(this).find("div"));
@@ -67,81 +64,40 @@ var jynPlayer = {
             
             $("#attack").on("click", function() {
                 if (playerSelected === true && opponentSelected === true) {
-                    // increment attack power by original number
+                    console.log(you.attackPower);
                     defender.healthPoints -= you.attackPower;
+                    you.attackPower += parseFloat(yourAttack);
                     enemyHealth.html(defender.healthPoints);           
                     you.healthPoints -= defender.counterAttackPower;
                     yourHealth.html(you.healthPoints);
+                    $("#results1").html(you.name + " attacked " + defender.name + " for " + you.attackPower + " damage");
+                    $("#results2").html(defender.name + " counter-attacked for " + defender.counterAttackPower + " damage");
                     if (defender.healthPoints <= 0) {
                         console.log("You win! Choose another enemy.")
                         opponentSelected = false;
                         $("#defender").empty();
-                    } else if (you.healthPoints <= 0) {
+                        wins++
+                        }
+                    else if (you.healthPoints <= 0) {
                         console.log("You lost. Press reset.")
                         $("#reset-button").html('<button class="btn btn-warning">Reset</button>');
                         $(".players").hide();
-                        return;
-                        }
-                    };
+                    } 
+                        if (wins === 3) {
+                        console.log("you win");
+                        $("#your-character").empty();
+                        $("#reset-button").html('<button class="btn btn-warning">Reset</button>');
+                };  
+                };
                 }); 
                 
-            //  if ($("#defender") === "") {
-            //         console.log("you win");
-            //         $("#reset-button").html('<button class="btn btn-warning">Reset</button>');
-            //         $("#your-character").empty();
-            //         return;
-                // }; attribute on the attacker that has their attack level so I just add that to a variable that I increment
-                // after each attack
-
-
         });
 
     });
    
-    
     $("#reset-button").on("click", function() {
-        // $("#defender").empty();
-        // $("#your-character").empty();
-        $(".players").show();
-        playerSelected = false;
-        opponentSelected = false;
-        $(".players").addClass("col-3");
-        $("#player-choices").append($(".players"));
-        reyPlayer.healthPoints = 180;
-        reyPlayer.attackPower = 6;
-        leiaPlayer.healthPoints = 150;
-        leiaPlayer.attackPower = 9;
-        padmePlayer.healthPoints = 100;
-        padmePlayer.attackPower = 7;
-        jynPlayer.healthPoints = 120;
-        jynPlayer.attackPower = 8;
+            location.reload();
         });
 
 
 }); 
-
-
-
-
-// function updateDOMForDefender() {
-//     const defenderElement = $('#' + defender.id).clone();
-//     $('#' + defender.id).remove();
-//     $("#defender").html(defenderElement);
-//     $("#defender").addClass("col-3");
-// }
-
-//   $(".operator").on("click", function() {
-//     if (firstNumber !== "") {
-//     isOperator = true;
-//     console.log(this.value);
-//       if (this.value === "plus") {
-//         operator = "+"
-//       } 
-//     } $("#operator").html(operator);
-//   });
-
-// var el = $('#wrapper').detach();
-
-// $("#open_menu").click(function(){
-//     $(this).append(el);
-// });
