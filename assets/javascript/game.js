@@ -60,32 +60,30 @@ var jynPlayer = {
             } 
             
             $("#attack").on("click", function() {
-                if (playerSelected === true && opponentSelected === true) {
+                if (playerSelected === true && opponentSelected === true && wins < 3 === true && you.healthPoints > 0 === true) {
                     defender.healthPoints -= you.attackPower;
                     you.attackPower += parseFloat(yourAttack);
-                    enemyHealth.html(defender.healthPoints);           
+                    enemyHealth.html(defender.healthPoints);
                     you.healthPoints -= defender.counterAttackPower;
                     yourHealth.html(you.healthPoints);
                     $("#results1").html(you.name + " attacked " + defender.name + " for " + you.attackPower + " damage");
                     $("#results2").html(defender.name + " counterattacked for " + defender.counterAttackPower + " damage");
-                    if (defender.healthPoints <= 0) {
-                        $("#results1").html("You win!");
+                    if (defender.healthPoints <= 0 && you.healthPoints > 0) {
+                        $("#results1").html("You won this round!");
                         $("#results2").html("Choose another enemy");
                         opponentSelected = false;
                         $("#defender").empty();
                         wins++
                             if (wins === 3) {
-                            $("#results1").html("You win!");
-                            $("#results2").html("Your enemies are vanquished.");
-                            $(".players").hide();
+                            $("#results1").html("You win! The force is strong with you.");
+                            $("#results2").html("Press reset to play again");
                             $("#reset-button").html('<button class="btn btn-warning">Reset</button>');
                             };  
                         }
                     else if (you.healthPoints <= 0) {
-                        $("#results1").html("You died.");
+                        $("#results1").html("You got blasted--so uncivilized!");
                         $("#results2").html("Press reset to play again");
                         $("#reset-button").html('<button class="btn btn-warning">Reset</button>');
-                        $(".players").hide();
                     }      
                 };
             });      
